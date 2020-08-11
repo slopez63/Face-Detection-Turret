@@ -3,17 +3,17 @@ import serial
 from threading import Timer
 import time
 
-faceCascade = cv2.CascadeClassifier("/usr/local/lib/python3.7/dist-packages/cv2/data/haarcascade_frontalface_default.xml")
+faceCascade = cv2.CascadeClassifier( cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 #Camera Settings
-frameWidth = 320
-frameHeight = 240
+frameWidth = 160
+frameHeight = 120
 frameBrightness = 25
 
 #How much space left for bounds
-padding = 40
-wCenter = frameWidth // 2
-hCenter = frameHeight // 2
+padding = 50
+wCenter = frameWidth
+hCenter = frameHeight
 
 cap = cv2.VideoCapture(0)
 cap.set(3, frameWidth)
@@ -21,9 +21,9 @@ cap.set(4, frameHeight)
 cap.set(10, frameBrightness)
 
 #Serial
-port = '/dev/arduino'
-ser = serial.Serial(port, 9600, timeout=1, write_timeout = 1)
-ser.flush()
+#port = '/dev/arduino'
+#ser = serial.Serial(port, 9600, timeout=1, write_timeout = 1)
+#ser.flush()
 
 #Timer Warning (Seconds)
 faceTime = 3
@@ -59,8 +59,8 @@ while True:
     faces = faceCascade.detectMultiScale(imgGray, 1.1, 4)
 
     #Face detected coordinates
-    xPos = frameWidth // 2
-    yPos = frameHeight // 2
+    xPos = wCenter
+    yPos = hCenter
 
     #Variables to send to arduino
     #Final servo move request
@@ -104,9 +104,9 @@ while True:
             
     #Send final message to serial device (A and F represent start and end of message)
     stringMsg =  "A" + str(xServo) + "," + str(yServo) + "," + str(trigger) + "F"
-    #print(stringMsg)
+    print(stringMsg)
     
-    ser.write(stringMsg.encode())
+#     ser.write(stringMsg.encode())
     #Ex: True,1,0 or False,1,1 ...
     
     if(detectionTimer.is_alive()):
@@ -117,20 +117,21 @@ while True:
     #Debugging Tools start from here
 
     #Rectangle padding bound (Debugging)
-    #pX = wCenter - (padding)
-    #pY = hCenter - (padding)
-    #pX2 = wCenter + (padding)
-    #pY2 = hCenter + (padding)
+    pX = wCenter - (padding)
+    pY = hCenter - (padding)
+    pX2 = wCenter + (padding)
+    pY2 = hCenter + (padding)
     
-    #cv2.rectangle(img, (pX,pY), (pX2, pY2), (0,255,0), 2)
+    cv2.rectangle(img, (pX,pY), (pX2, pY2), (0,255,0), 2)
+    cv2.circle(img,(wCenter, hCenter), 10, (255,0,0), -1)
 
     #Face detection center point (Debugging)
-    #cv2.circle(img,(int(xPos), int(yPos)), 10, (0,255,0), -1)
+    cv2.circle(img,(int(xPos), int(yPos)), 10, (0,255,0), -1)
 
     #Display Image with detection objects (Debugging)
-    #cv2.imshow("Result", img)
+    cv2.imshow("Result", img)
 
     #Key q can be pressed to quit program
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        ser.flush();
+#         ser.flush();
         break
