@@ -17,4 +17,5 @@ This is a project that I am currently working on.
 - Arduino (Robotic Mechanical Manipulation)
 - Rapberry Pi 4 4gb ram (Image Processing using OpenCV)
 - Two servos that control yaw and pitch angles of the turret
+- Two DC motors that activate shoting of bullet
 - One RGB USB camera (640 x 480 resolution)
