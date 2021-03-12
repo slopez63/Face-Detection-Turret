@@ -4,13 +4,13 @@ This is a project that I am currently working on.
 
 # Main Goals
 
-[] Turret is able to follow a face in real time  
-[] Use an AI algorithm that can detect faces and know if they are stored in the database  
-[] Create a UI that can...  
-  [] Turn on / off turret  
-  [] Add and delete saved faces  
-  [] Store pictures and local information of undetected faces  
-  [] Control movement and trigger of turret  
+[ ] Turret is able to follow a face in real time  
+[ ] Use an AI algorithm that can detect faces and know if they are stored in the database  
+[ ] Create a UI that can...  
+  [ ] Turn on / off turret  
+  [ ] Add and delete saved faces  
+  [ ] Store pictures and local information of undetected faces  
+  [ ] Control movement and trigger of turret  
 
 # Hardware
 
