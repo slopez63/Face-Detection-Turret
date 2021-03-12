@@ -4,7 +4,7 @@ This is a project that I am currently working on.
 
 # Main Goals
 
-[] Turret is able to follow a face in real time /n
+[] Turret is able to follow a face in real time 
 [] Use an AI algorithm that can detect faces and know if they are stored in the database 
 [] Create a UI that can...
   [] Turn on / off turret
